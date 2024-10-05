@@ -30,4 +30,23 @@
 .buttons{
     flex: 4;
     border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.numbers{
+    
+    flex: 3;
+    gap: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+.numButtons{
+    width: calc(100%/4);
+    height: calc(100%/4);
+    margin: 0;
+    flex: 1 1 auto;
+    box-sizing: border-box;
 }
