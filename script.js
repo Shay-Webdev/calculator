@@ -37,9 +37,9 @@ function input (input) {
 inputButton.forEach((button) =>{
     button.addEventListener("click", (input) => {
         let buttonText = button.textContent;
-    
+
         displayPara.textContent = buttonText;
-    
+        
     });
 });
 
