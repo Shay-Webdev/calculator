@@ -60,14 +60,21 @@
 }
 
 .zero{
-    flex: 2;
+    flex: 2.05;
     margin: 0;
     box-sizing: border-box;
 }
 
 .dot,
 .equal{
-    flex: 1;
+    flex: 0.95;
     margin: 0;
     box-sizing: border-box;
+}
+button{
+    background-color: blue;
+    color: black;
+    border: 1px solid black;
+    font-size: larger;
+    font-weight: bolder;
 }
