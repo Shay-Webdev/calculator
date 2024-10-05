@@ -1,0 +1,33 @@
+.container{
+    border: 10px solid black;
+    margin: auto;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container > * {
+    
+}
+
+.display{
+    flex:1 ;
+    border: 2px solid brown;
+    background-color: orangered;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.displayPara{
+    font-size: 50px;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    justify-content: center;
+    align-self: flex-end;
+}
+.buttons{
+    flex: 4;
+    border: 2px solid black;
+}
