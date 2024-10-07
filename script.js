@@ -29,20 +29,22 @@ const displayPara = document.querySelector(".displayPara");
 function operate (num1, num2, operand1){
 
 }
-
-function input (input) {
-   let displayValue = displayPara.textContent = inputButton.value;
-   return displayValue;
-}
+function truncateText(text) {
+    if (text.length > 20) {
+      return text.substring(0, 20) + '...';
+    } else {
+      return text;
+    }
+  }
 
 inputButton.forEach((button) =>{
     button.addEventListener("click", (input) => {
         // debugger
         let buttonText = button.textContent;
         if (displayPara.textContent == 'ready'){
-            return displayPara.textContent = buttonText;
+            return displayPara.textContent = truncateText(buttonText);
         }else{
-            return displayPara.textContent += buttonText ;
+            return displayPara.textContent += truncateText(buttonText) ;
         }
     });
 });
