@@ -34,12 +34,16 @@ function input (input) {
    let displayValue = displayPara.textContent = inputButton.value;
    return displayValue;
 }
+
 inputButton.forEach((button) =>{
     button.addEventListener("click", (input) => {
+        // debugger
         let buttonText = button.textContent;
-
-        displayPara.textContent = buttonText;
-        
+        if (displayPara.textContent == 'ready'){
+            return displayPara.textContent = buttonText;
+        }else{
+            return displayPara.textContent += buttonText ;
+        }
     });
 });
 
