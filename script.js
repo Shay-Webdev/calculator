@@ -39,17 +39,19 @@ function truncateText(text) {
       return text;
     }
   }
+let clickedButtons = []; 
 
-inputButton.forEach((button) =>{
-    button.addEventListener("click", (input) => {
-        // debugger
-        let buttonText = button.textContent;
-        if (displayPara.textContent == 'ready'){
-            return displayPara.textContent = truncateText(buttonText);
-        }else{
-            return displayPara.textContent += truncateText(buttonText) ;
-        }
-    });
+inputButton.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    let buttonText = button.textContent;
+    if (displayPara.textContent === 'ready') {
+      displayPara.textContent = truncateText(buttonText);
+    } else {
+      displayPara.textContent += truncateText(buttonText);
+    }
+    clickedButtons.push(buttonText);
+  });
 });
 
+console.log(clickedButtons);
 
