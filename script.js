@@ -28,6 +28,7 @@ function add(a, b) {
     }
     return a % b;
   }
+  
   function power(a, b) {
     return Math.pow(a, b);
   }
@@ -41,30 +42,30 @@ function add(a, b) {
   const equalButton = document.querySelector(".equal");
   
   let clickedButtons = [];
-
-const clearButton = document.querySelector(".cancel");
-
-    clearButton.addEventListener("click", () => {
+  
+  const clearButton = document.querySelector(".cancel");
+  
+  clearButton.addEventListener("click", () => {
     displayPara.textContent = "ready";
     clickedButtons = [];
-});
-
-
-inputButton.forEach((button) => {
+  });
+  
+  inputButton.forEach((button) => {
     button.addEventListener("click", (event) => {
       let buttonText = button.textContent;
       if (buttonText === ".") {
-        // debugger
-        if (!displayPara.textContent.includes(".")) {
+        let currentText = displayPara.textContent;
+        let parts = currentText.split(/[+*/%-]/);
+        let lastPart = parts[parts.length - 1];
+        
+        if (!lastPart.includes(".")) {
           displayPara.textContent += buttonText;
           clickedButtons.push(buttonText);
         }
-      }
-      if (buttonText === "AC") {
+      }else if (buttonText === "AC") {
         clearButton.click(); // simulate a click on the "C" button
         return;
-      }
-      if (buttonText === "C") {
+      } else if (buttonText === "C") {
         let currentText = displayPara.textContent;
         if (currentText !== "ready") {
           let newText = currentText;
@@ -79,10 +80,17 @@ inputButton.forEach((button) => {
           }
         }
         return;
-      }
-      if (buttonText === "=") {
+      } else if (buttonText === "=") {
+        debugger
         let expression = clickedButtons.join("");
-        expression = expression.replace(/[= | .]/g, ""); // remove the "=" button from the expression
+        let parts = expression.split(/([+*/%-])/); // Split on operators, but keep them in the parts array
+        for (let i = 0; i < parts.length; i++) {
+          if (parts[i].indexOf(".") > -1) {
+            parts[i] = parts[i].replace(/\.(?=.*\.)/g, "");
+          }
+        }
+        expression = parts.join(""); // Join the parts back together with the operators
+        expression = expression.replace(/[=]/g, "");
         let numbers = expression.split(/[+*/%-]/);
         let operators = expression.replace(/[.0-9]/g, "").split("");
         let result = Number(numbers[0]);
@@ -93,19 +101,27 @@ inputButton.forEach((button) => {
         }
         displayPara.textContent = result.toString(); // display the result as a string
         clickedButtons = []; // clear the clickedButtons array
-      }else if (displayPara.textContent === "ready") {
-          displayPara.textContent = buttonText;
-        } else {
-          if (buttonText !== "=" && buttonText !== ".") { // add this condition
-            displayPara.textContent += buttonText;
-          }
+      } else if (displayPara.textContent === "ready") {
+        displayPara.textContent = buttonText;
+      } else {
+        if (buttonText !== "=" && buttonText !== ".") { // add this condition
+          displayPara.textContent += buttonText;
         }
-      
+      }
       clickedButtons.push(buttonText);
     });
   });
-
-function operate(num1, num2, operator) {
+  
+  document.addEventListener("keydown", (event) => {
+    const keyValue = event.key;
+    const button = document.querySelector(`button[data-key="${keyValue}"]`);
+  
+    if (button) {
+      button.click(); // simulate a click on the corresponding button
+    }
+  });
+  
+  function operate(num1, num2, operator) {
     switch (operator) {
       case "+":
         return add(num1, num2);
@@ -122,13 +138,12 @@ function operate(num1, num2, operator) {
       default:
         throw new Error(`Invalid operator: ${operator}`);
     }
-}
-  
-function truncateText(text) {
-  if (text.length > 20) {
-    return text.substring(0, 20) + "...";
-  } else {
-    return text;
   }
-}
-
+  
+  function truncateText(text) {
+    if (text.length > 20) {
+      return text.substring(0, 20) + "...";
+    } else {
+      return text;
+    }
+  }
