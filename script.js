@@ -53,6 +53,13 @@ const clearButton = document.querySelector(".cancel");
 inputButton.forEach((button) => {
     button.addEventListener("click", (event) => {
       let buttonText = button.textContent;
+      if (buttonText === ".") {
+        // debugger
+        if (!displayPara.textContent.includes(".")) {
+          displayPara.textContent += buttonText;
+          clickedButtons.push(buttonText);
+        }
+      }
       if (buttonText === "AC") {
         clearButton.click(); // simulate a click on the "C" button
         return;
@@ -74,8 +81,9 @@ inputButton.forEach((button) => {
         return;
       }
       if (buttonText === "=") {
+        debugger
         let expression = clickedButtons.join("");
-        expression = expression.replace("=", ""); // remove the "=" button from the expression
+        expression = expression.replace(/[= | .]/g, ""); // remove the "=" button from the expression
         let numbers = expression.split(/[+*/%-]/);
         let operators = expression.replace(/[.0-9]/g, "").split("");
         let result = Number(numbers[0]);
@@ -89,7 +97,7 @@ inputButton.forEach((button) => {
       }else if (displayPara.textContent === "ready") {
           displayPara.textContent = buttonText;
         } else {
-          if (buttonText !== "=") { // add this condition
+          if (buttonText !== "=" && buttonText !== ".") { // add this condition
             displayPara.textContent += buttonText;
           }
         }
