@@ -77,9 +77,28 @@
     box-sizing: border-box;
 }
 button{
-    background-color: blue;
+    /* background-color: blue; */
     color: black;
     border: 1px solid black;
     font-size: larger;
     font-weight: bolder;
+}
+
+.numButtons.clear{
+    background-color: crimson;
+}
+
+.numButtons.cancel{
+    background-color: red;
+}
+
+.operator {
+    background-color: greenyellow;
+}
+.number{
+    background-color: blue;
+}
+
+.operator.equal{
+    background-color: aqua;
 }

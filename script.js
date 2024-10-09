@@ -81,7 +81,6 @@ inputButton.forEach((button) => {
         return;
       }
       if (buttonText === "=") {
-        debugger
         let expression = clickedButtons.join("");
         expression = expression.replace(/[= | .]/g, ""); // remove the "=" button from the expression
         let numbers = expression.split(/[+*/%-]/);
