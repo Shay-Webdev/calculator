@@ -18,16 +18,23 @@ function add(a, b) {
   }
   
   function modulus(a, b) {
+    a = parseInt(a);
+    b = parseInt(b);
+    if (isNaN(a) || isNaN(b)) {
+      throw new Error("Both operands must be numbers!");
+    }
+    if (b === 0) {
+      throw new Error("Cannot perform modulus by zero!");
+    }
     return a % b;
   }
-  
   function power(a, b) {
     return Math.pow(a, b);
   }
   
   let numberOne;
   let numberTwo;
-  let operand;
+  let operator;
   
   const inputButton = document.querySelectorAll("button");
   const displayPara = document.querySelector(".displayPara");
@@ -105,7 +112,7 @@ function truncateText(text) {
 equalButton.addEventListener("click", () => {
   let expression = clickedButtons.join("");
   expression = expression.replace("=", ""); // remove the "=" button from the expression
-  let numbers = expression.split(/[+*/^-]/);
+  let numbers = expression.split(/[+*/%-]/);
   let operators = expression.replace(/[0-9]/g, "").split("");
   let result = Number(numbers[0]);
   for (let i = 0; i < operators.length; i++) {
