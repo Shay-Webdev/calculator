@@ -73,11 +73,27 @@ inputButton.forEach((button) => {
         }
         return;
       }
-      if (displayPara.textContent === "ready") {
-        displayPara.textContent = truncateText(buttonText);
-      } else {
-        displayPara.textContent += truncateText(buttonText);
-      }
+      if (buttonText === "=") {
+        let expression = clickedButtons.join("");
+        expression = expression.replace("=", ""); // remove the "=" button from the expression
+        let numbers = expression.split(/[+*/%-]/);
+        let operators = expression.replace(/[.0-9]/g, "").split("");
+        let result = Number(numbers[0]);
+        for (let i = 0; i < operators.length; i++) {
+          let num = Number(numbers[i + 1]);
+          let operator = operators[i];
+          result = operate(result, num, operator);
+        }
+        displayPara.textContent = result.toString(); // display the result as a string
+        clickedButtons = []; // clear the clickedButtons array
+      }else if (displayPara.textContent === "ready") {
+          displayPara.textContent = buttonText;
+        } else {
+          if (buttonText !== "=") { // add this condition
+            displayPara.textContent += buttonText;
+          }
+        }
+      
       clickedButtons.push(buttonText);
     });
   });
@@ -109,16 +125,3 @@ function truncateText(text) {
   }
 }
 
-equalButton.addEventListener("click", () => {
-  let expression = clickedButtons.join("");
-  expression = expression.replace("=", ""); // remove the "=" button from the expression
-  let numbers = expression.split(/[+*/%-]/);
-  let operators = expression.replace(/[.0-9]/g, "").split("");
-  let result = Number(numbers[0]);
-  for (let i = 0; i < operators.length; i++) {
-    let num = Number(numbers[i + 1]);
-    let operator = operators[i];
-    result = operate(result, num, operator);
-  }
-  displayPara.textContent = result;
-});
