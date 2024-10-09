@@ -113,7 +113,7 @@ equalButton.addEventListener("click", () => {
   let expression = clickedButtons.join("");
   expression = expression.replace("=", ""); // remove the "=" button from the expression
   let numbers = expression.split(/[+*/%-]/);
-  let operators = expression.replace(/[0-9]/g, "").split("");
+  let operators = expression.replace(/[.0-9]/g, "").split("");
   let result = Number(numbers[0]);
   for (let i = 0; i < operators.length; i++) {
     let num = Number(numbers[i + 1]);
